@@ -23,4 +23,4 @@ def translate_en2vi():
     return jsonify({'vi_text': vi_text})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=80)
