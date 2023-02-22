@@ -4,7 +4,8 @@ FROM translate-base
 WORKDIR /app
 
 # Copy application code to working directory
-COPY . .
+COPY app.py .
+COPY test_app.py .
 
 # Expose port 8000 for the application
 EXPOSE 80
