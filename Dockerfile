@@ -10,5 +10,4 @@ COPY . .
 EXPOSE 80
 RUN pytest test_app.py -v
 
-# Set entrypoint to run the application
-ENTRYPOINT ["python", "app.py"]
+CMD ["python", "app.py"]
