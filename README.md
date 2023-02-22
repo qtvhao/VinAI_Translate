@@ -29,10 +29,10 @@ Please **CITE** our paper whenever the pre-trained models or the system are used
     
 ### Pre-trained models
 
-Model | #params | Max length  
----|---|---
-`vinai/vinai-translate-vi2en` | 448M | 1024  
-`vinai/vinai-translate-en2vi` | 448M | 1024  
+| Model                         | #params | Max length |
+|-------------------------------|---------|------------|
+| `vinai/vinai-translate-vi2en` | 448M    | 1024       |
+| `vinai/vinai-translate-en2vi` | 448M    | 1024       |
 
 - Users might also play with these models via the VinAI Translate text-to-text translation app at: [https://huggingface.co/spaces/vinai/VinAI_Translate](https://huggingface.co/spaces/vinai/VinAI_Translate)
 
