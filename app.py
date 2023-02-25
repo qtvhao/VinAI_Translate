@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import os
-import signal
 
 app = Flask(__name__)
 
@@ -14,32 +13,17 @@ model_en2vi = AutoModelForSeq2SeqLM.from_pretrained("vinai/vinai-translate-en2vi
 def translate_en2vi():
     en_text = request.json['en_text']
     input_ids = tokenizer_en2vi(en_text, return_tensors="pt").input_ids
-
-    def handle_timeout(signum, frame):
-        raise Exception("Translation process timed out")
-
-    signal.signal(signal.SIGALRM, handle_timeout)
-    signal.alarm(30)  # set a 30-second timeout
-
-    try:
-        output_ids = model_en2vi.generate(
-            input_ids,
-            do_sample=True,
-            top_k=100,
-            top_p=0.8,
-            decoder_start_token_id=tokenizer_en2vi.lang_code_to_id["vi_VN"],
-            num_return_sequences=1,
-        )
-    except Exception as e:
-        return jsonify({'error': str(e)})
-
-    signal.alarm(0)  # disable the timeout
-
+    output_ids = model_en2vi.generate(
+        input_ids,
+        do_sample=True,
+        top_k=100,
+        top_p=0.8,
+        decoder_start_token_id=tokenizer_en2vi.lang_code_to_id["vi_VN"],
+        num_return_sequences=1,
+    )
     vi_text = tokenizer_en2vi.batch_decode(output_ids, skip_special_tokens=True)
     vi_text = " ".join(vi_text)
     return jsonify({'vi_text': vi_text})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
-
-#The code above is a Flask app that uses the vinai/vinai-translate-en2vi model to translate English to Vietnamese. The model is loaded into memory when the app starts, and the translation process is wrapped in a timeout handler to prevent the app from hanging indefinitely.
