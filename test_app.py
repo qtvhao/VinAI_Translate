@@ -22,7 +22,7 @@ def test_translate_en2vi_cache_lock(client):
     end_time = time.monotonic()
     assert response2.status_code == 200
     assert 'Xin chào thế giới' in response2.json['vi_text']
-    assert end_time - start_time < 20  # Ensure response is fast (due to caching)
+    assert end_time - start_time < 1  # Ensure response is fast (due to caching)
 
     # Third request with different input: should compute new translation
     start_time = time.monotonic()
